@@ -14,8 +14,13 @@ namespace TestDbGeneration.IntegrationTest
         [Parallelizable]
         public void Test1()
         {
+            // Arrange
             using var env = new TestEnvironment();
+
+            // Act
             var persons = env.PersonFacade.Get().Value;
+
+            // Assert
             persons.Single().Id.Should().Be(1);
             persons.Single().Name.Should().Be("Person Default Name");
         }
