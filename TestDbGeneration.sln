@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestDbGeneration", "TestDbG
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestDbGeneration.IntegrationTest", "TestDbGeneration.IntegrationTest\TestDbGeneration.IntegrationTest.csproj", "{1266CAAA-0892-4618-90A5-CD2BBAF83B5C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestDbGeneration.NUnit.InitegrationTest", "TestDbGeneration.NUnit.InitegrationTest\TestDbGeneration.NUnit.InitegrationTest.csproj", "{CC37D973-F60F-4AF2-95FB-D3D41D0157C8}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{1266CAAA-0892-4618-90A5-CD2BBAF83B5C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1266CAAA-0892-4618-90A5-CD2BBAF83B5C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1266CAAA-0892-4618-90A5-CD2BBAF83B5C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CC37D973-F60F-4AF2-95FB-D3D41D0157C8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CC37D973-F60F-4AF2-95FB-D3D41D0157C8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CC37D973-F60F-4AF2-95FB-D3D41D0157C8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CC37D973-F60F-4AF2-95FB-D3D41D0157C8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
