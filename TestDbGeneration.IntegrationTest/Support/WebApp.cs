@@ -46,7 +46,6 @@ namespace TestDbGeneration.IntegrationTest.Support
                 var init = scopedServices.GetRequiredService<TestInitDataBase>();
                 init.Database.ExecuteSqlRaw($"create database {testSchema}");
                 // restore tables to {testSchema}
-
                 // or create tables
                 var db = scopedServices.GetRequiredService<DataContext>();
                 db.Database.EnsureCreated();
