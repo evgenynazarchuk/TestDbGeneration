@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using TestDbGeneration.IntegrationTest.Support;
 using System.Linq;
 using FluentAssertions;
+using TestDbGeneration.IntegrationTest.Support.Helpers;
 
 namespace TestDbGeneration.IntegrationTest
 {
@@ -21,8 +22,8 @@ namespace TestDbGeneration.IntegrationTest
             var persons = env.PersonFacade.Get().Value;
 
             // Assert
-            persons.Single().Id.Should().Be(1);
-            persons.Single().Name.Should().Be("Person Default Name");
+            persons.Single().Id.Should().Be(DefaultConstants.PersonId);
+            persons.Single().Name.Should().Be(DefaultConstants.PersonName);
         }
 
         [Test]

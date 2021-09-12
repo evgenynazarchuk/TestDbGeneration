@@ -14,12 +14,12 @@ namespace TestDbGeneration.IntegrationTest.Support.Helpers
         {
             db.Set<Person>().Add(new Person
             {
-                Name = "Person Default Name"
+                Name = DefaultConstants.PersonName
             });
 
             db.Set<Location>().Add(new Location
             {
-                Name = "Location Default Name"
+                Name = DefaultConstants.LocationName
             });
 
             db.SaveChanges();
