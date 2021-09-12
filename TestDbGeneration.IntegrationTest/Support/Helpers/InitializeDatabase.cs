@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 
-namespace TestDbGeneration.IntegrationTest.Support.Services
+namespace TestDbGeneration.IntegrationTest.Support.Helpers
 {
     public class InitializeDatabase : DbContext
     {

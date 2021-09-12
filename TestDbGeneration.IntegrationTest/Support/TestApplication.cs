@@ -29,15 +29,15 @@ namespace TestDbGeneration.IntegrationTest.Support
                 var scopedServices = scope.ServiceProvider;
 
                 // generate test database name
-                var testSchema = StringHelper.GenerateString();
+                var testDatabase = StringHelper.GenerateString();
 
                 // set test connection string
                 var configuration = scopedServices.GetRequiredService<IConfiguration>();
-                configuration["ConnectionStrings:Development"] = $"Server=localhost;Initial Catalog={testSchema};Trusted_Connection=True;";
+                configuration["ConnectionStrings:Development"] = $"Server=localhost;Initial Catalog={testDatabase};Trusted_Connection=True;";
 
                 // create test database
-                using var init = new InitializeDatabase();
-                init.Database.ExecuteSqlRaw($"create database {testSchema}");
+                using var dbInitConnect = new InitializeDatabase();
+                dbInitConnect.Database.ExecuteSqlRaw($"create database {testDatabase}");
 
                 // TODO: restore database from backup
                 // or generates tables
@@ -45,7 +45,7 @@ namespace TestDbGeneration.IntegrationTest.Support
                 db.Database.EnsureCreated();
 
                 // TODO: initialize data tables 
-                //
+                InitializeData.CreateDefaultData(db);
             });
         }
     }
