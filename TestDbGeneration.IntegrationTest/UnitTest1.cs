@@ -2,6 +2,8 @@
 using NUnit.Framework;
 using System.Threading.Tasks;
 using TestDbGeneration.IntegrationTest.Support;
+using System.Linq;
+using FluentAssertions;
 
 namespace TestDbGeneration.IntegrationTest
 {
@@ -10,10 +12,12 @@ namespace TestDbGeneration.IntegrationTest
     {
         [Test]
         [Parallelizable]
-        public async Task Test1()
+        public void Test1()
         {
             using var env = new TestEnvironment();
-            var result = await env.HttpClient.GetAsync("person");
+            var persons = env.PersonFacade.Get().Value;
+            persons.Single().Id.Should().Be(1);
+            persons.Single().Name.Should().Be("Person Default Name");
         }
 
         [Test]

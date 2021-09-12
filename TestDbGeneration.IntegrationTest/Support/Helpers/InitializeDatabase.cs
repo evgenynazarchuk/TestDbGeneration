@@ -10,5 +10,10 @@ namespace TestDbGeneration.IntegrationTest.Support.Helpers
         {
             optionsBuilder.UseSqlServer("Server=localhost;Trusted_Connection=True;");
         }
+
+        public void CreateDatabase(string databaseName)
+        {
+            Database.ExecuteSqlRaw($"create database {databaseName}");
+        }
     }
 }

@@ -21,6 +21,8 @@ namespace TestDbGeneration.IntegrationTest.Support.Helpers
             {
                 Name = "Location Default Name"
             });
+
+            db.SaveChanges();
         }
     }
 }

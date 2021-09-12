@@ -2,6 +2,7 @@
 using System;
 using System.Net.Http;
 using TestDbGeneration.Services;
+using TestDbGeneration.IntegrationTest.Support.Helpers.Facade;
 
 namespace TestDbGeneration.IntegrationTest.Support
 {
@@ -11,10 +12,16 @@ namespace TestDbGeneration.IntegrationTest.Support
 
         public HttpClient HttpClient;
 
+        public PersonFacade PersonFacade;
+
+        public LocationFacade LocationFacade;
+
         public TestEnvironment()
         {
             this.WebApp = new();
             this.HttpClient = this.WebApp.CreateClient();
+            this.PersonFacade = new(this.HttpClient);
+            this.LocationFacade = new(this.HttpClient);
         }
 
         public void Dispose()

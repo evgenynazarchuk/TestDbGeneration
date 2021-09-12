@@ -15,13 +15,18 @@ namespace TestDbGeneration.Services
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer(this.configuration.GetConnectionString("Production"));
+            if (!optionsBuilder.IsConfigured)
+            {
+                optionsBuilder.UseSqlServer("Server=localhost;Initial Catalog=AWPHPVGVDZ;Trusted_Connection=True;");
+            }
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Person>().HasKey(x => x.Id);
             modelBuilder.Entity<Location>().HasKey(x => x.Id);
+
+            base.OnModelCreating(modelBuilder);
         }
     }
 }

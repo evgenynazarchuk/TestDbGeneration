@@ -37,7 +37,8 @@ namespace TestDbGeneration.IntegrationTest.Support
 
                 // create test database
                 using var dbInitConnect = new InitializeDatabase();
-                dbInitConnect.Database.ExecuteSqlRaw($"create database {testDatabase}");
+                dbInitConnect.CreateDatabase(testDatabase);
+                //dbInitConnect.Database.ExecuteSqlRaw($"create database {testDatabase}");
 
                 // TODO: restore database from backup
                 // or generates tables
