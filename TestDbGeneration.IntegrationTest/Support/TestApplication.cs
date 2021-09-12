@@ -22,30 +22,30 @@ namespace TestDbGeneration.IntegrationTest.Support
                         typeof(DataContext));
                 services.Remove(dataContext);
 
-                //services.AddTransient<InitDataBase>();
                 services.AddTransient<DataContext, TestDataContext>();
 
                 var sp = services.BuildServiceProvider();
                 using var scope = sp.CreateScope();
                 var scopedServices = scope.ServiceProvider;
 
-                // set test schema
-                // or generate test schema name
+                // generate test database name
                 var testSchema = StringHelper.GenerateString();
 
-                // set connection string
+                // set test connection string
                 var configuration = scopedServices.GetRequiredService<IConfiguration>();
                 configuration["ConnectionStrings:Development"] = $"Server=localhost;Initial Catalog={testSchema};Trusted_Connection=True;";
 
-                // create test schema
-                //var init = scopedServices.GetRequiredService<InitDataBase>();
+                // create test database
                 using var init = new InitializeDatabase();
                 init.Database.ExecuteSqlRaw($"create database {testSchema}");
 
-                // restore database to test schema
-                // or create tables
+                // TODO: restore database from backup
+                // or generates tables
                 var db = scopedServices.GetRequiredService<DataContext>();
                 db.Database.EnsureCreated();
+
+                // TODO: initialize data tables 
+                //
             });
         }
     }
