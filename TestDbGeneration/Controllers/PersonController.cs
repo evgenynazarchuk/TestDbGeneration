@@ -21,8 +21,9 @@ namespace TestDbGeneration.Controllers
         }
 
         [HttpGet]
-        public IActionResult Get()
+        public async Task<IActionResult> Get()
         {
+            await Task.Delay(2000);
             var persons = this.dataContext.Set<Person>().ToArray();
             return Ok(persons);
         }

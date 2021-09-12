@@ -5,7 +5,7 @@ using TestDbGeneration.IntegrationTest.Support;
 
 namespace TestDbGeneration.IntegrationTest
 {
-    public class UnitTest1
+    public class UnitTest2
     {
         [Fact]
         public async Task Test1()

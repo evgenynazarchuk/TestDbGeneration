@@ -28,8 +28,8 @@ namespace TestDbGeneration.IntegrationTest.Support
         public void Dispose()
         {
             //// drop tables and schema
-            ////var dataContext = this.WebApp.Server.Services.GetRequiredService<DataContext>();
-            ////dataContext.Database.EnsureDeleted();
+            var dataContext = this.WebApp.Server.Services.GetRequiredService<DataContext>();
+            dataContext.Database.EnsureDeleted();
         }
     }
 }
