@@ -15,7 +15,7 @@ namespace TestDbGeneration.IntegrationTest.Support
 {
     public class TestEnvironment : IDisposable
     {
-        public WebApp WebApp;
+        public TestApplication WebApp;
 
         public HttpClient HttpClient;
 

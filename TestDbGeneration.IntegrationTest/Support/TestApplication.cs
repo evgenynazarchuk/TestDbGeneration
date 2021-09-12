@@ -20,7 +20,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace TestDbGeneration.IntegrationTest.Support
 {
-    public class WebApp : WebApplicationFactory<Startup>, IDisposable
+    public class TestApplication : WebApplicationFactory<Startup>, IDisposable
     {
         protected override void ConfigureWebHost(IWebHostBuilder builder)
         {
@@ -43,6 +43,7 @@ namespace TestDbGeneration.IntegrationTest.Support
                 var configuration = scopedServices.GetRequiredService<IConfiguration>();
                 configuration["ConnectionStrings:Development"] = $"Server=localhost;Initial Catalog={testSchema};Trusted_Connection=True;";
 
+                // create schema
                 var init = scopedServices.GetRequiredService<TestInitDataBase>();
                 init.Database.ExecuteSqlRaw($"create database {testSchema}");
                 // restore tables to {testSchema}
