@@ -1,7 +1,6 @@
-using System;
-using System.Threading.Tasks;
 //using Xunit;
 using NUnit.Framework;
+using System.Threading.Tasks;
 using TestDbGeneration.IntegrationTest.Support;
 
 namespace TestDbGeneration.IntegrationTest

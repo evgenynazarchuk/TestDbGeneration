@@ -1,14 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using TestDbGeneration.IntegrationTest.Support;
+﻿using Microsoft.Extensions.DependencyInjection;
+using System;
 using System.Net.Http;
-using TestDbGeneration.IntegrationTest.Support.Services;
-using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.EntityFrameworkCore;
 using TestDbGeneration.Services;
 
 namespace TestDbGeneration.IntegrationTest.Support
@@ -27,7 +19,7 @@ namespace TestDbGeneration.IntegrationTest.Support
 
         public void Dispose()
         {
-            //// drop tables and schema
+            //// drop tables and database
             var dataContext = this.WebApp.Server.Services.GetRequiredService<DataContext>();
             dataContext.Database.EnsureDeleted();
         }

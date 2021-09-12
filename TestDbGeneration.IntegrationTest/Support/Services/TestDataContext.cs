@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
-using TestDbGeneration.Services;
+﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
+using TestDbGeneration.Services;
 
 namespace TestDbGeneration.IntegrationTest.Support.Services
 {
@@ -13,7 +8,7 @@ namespace TestDbGeneration.IntegrationTest.Support.Services
     {
         public TestDataContext(IConfiguration configuration)
             : base(configuration)
-        { 
+        {
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
