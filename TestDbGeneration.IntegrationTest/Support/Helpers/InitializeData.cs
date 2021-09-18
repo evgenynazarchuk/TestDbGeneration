@@ -25,5 +25,10 @@ namespace TestDbGeneration.IntegrationTest.Support.Helpers
 
             db.SaveChanges();
         }
+
+        public static void CreateDatabase(TestDataContext db, string databaseName)
+        {
+            db.Database.ExecuteSqlRaw($"create database {databaseName}");
+        }
     }
 }

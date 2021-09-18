@@ -8,6 +8,7 @@ using System.Linq;
 using TestDbGeneration.IntegrationTest.Support.Helpers;
 using TestDbGeneration.IntegrationTest.Support.Services;
 using TestDbGeneration.Services;
+using Microsoft.AspNetCore.TestHost;
 
 namespace TestDbGeneration.IntegrationTest.Support
 {
@@ -15,28 +16,29 @@ namespace TestDbGeneration.IntegrationTest.Support
     {
         protected override void ConfigureWebHost(IWebHostBuilder builder)
         {
+            builder.UseSolutionRelativeContentRoot("");
+
             builder.ConfigureServices(services =>
             {
                 // сгенерировать тестовое имя базы данных
-                var testDatabase = StringHelper.GenerateString();
+                var testDatabaseName = StringHelper.GenerateString();
+                var masterConnectionString = $"Server=localhost;Trusted_Connection=True;";
+                var testConnectionString = $"Server=localhost;Database={testDatabaseName};Trusted_Connection=True;";
 
                 // создать базу данных (без таблиц)
-                using (var baseDatabaseConnect = new InitializeDatabase())
+                using (var masterDatabaseContext = new TestDataContext(masterConnectionString))
                 {
-                    baseDatabaseConnect.CreateDatabase(testDatabase);
+                    InitializeData.CreateDatabase(masterDatabaseContext, testDatabaseName);
                 }
 
                 // найти оригинальный коннект к базе и заменить на свой
-                var dataContext = services.Single(d => d.ServiceType == typeof(DataContext));
-                services.Remove(dataContext);
-                services.AddTransient<DataContext>(x => new TestDataContext($"Server=localhost;Database={testDatabase};Trusted_Connection=True;"));
+                var originalDatabaseContext = services.Single(d => d.ServiceType == typeof(DataContext));
+                services.Remove(originalDatabaseContext);
+                services.AddTransient<DataContext>(x => new TestDataContext(testConnectionString));
 
-                // получить ссылку на базу данных
+                // получить новый коннект на базу данных
                 var sp = services.BuildServiceProvider();
-                // using var scope = sp.CreateScope();
-                // var serviceProdiver = scope.ServiceProvider;
                 var dbConnect = sp.GetRequiredService<DataContext>() as TestDataContext;
-
                 // создать таблицы
                 dbConnect.Database.EnsureCreated();
                 // созданные данные в таблицах
