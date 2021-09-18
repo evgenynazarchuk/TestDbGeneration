@@ -17,7 +17,7 @@ namespace TestDbGeneration.Services
         {
             if (!optionsBuilder.IsConfigured)
             {
-                optionsBuilder.UseSqlServer("Server=localhost;Initial Catalog=AWPHPVGVDZ;Trusted_Connection=True;");
+                optionsBuilder.UseSqlServer("Server=localhost;Database=AWPHPVGVDZ;Trusted_Connection=True;");
             }
         }
 

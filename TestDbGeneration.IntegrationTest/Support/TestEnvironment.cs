@@ -26,7 +26,7 @@ namespace TestDbGeneration.IntegrationTest.Support
 
         public void Dispose()
         {
-            //// drop tables and database
+            // удалить базу данных и таблицы
             var dataContext = this.WebApp.Server.Services.GetRequiredService<DataContext>();
             dataContext.Database.EnsureDeleted();
         }

@@ -17,36 +17,30 @@ namespace TestDbGeneration.IntegrationTest.Support
         {
             builder.ConfigureServices(services =>
             {
-                var dataContext = services.SingleOrDefault(
-                    d => d.ServiceType ==
-                        typeof(DataContext));
-                services.Remove(dataContext);
-
-                services.AddTransient<DataContext, TestDataContext>();
-
-                var sp = services.BuildServiceProvider();
-                using var scope = sp.CreateScope();
-                var scopedServices = scope.ServiceProvider;
-
-                // generate test database name
+                // сгенерировать тестовое имя базы данных
                 var testDatabase = StringHelper.GenerateString();
 
-                // set test connection string
-                var configuration = scopedServices.GetRequiredService<IConfiguration>();
-                configuration["ConnectionStrings:Development"] = $"Server=localhost;Initial Catalog={testDatabase};Trusted_Connection=True;";
+                // создать базу данных (без таблиц)
+                using (var baseDatabaseConnect = new InitializeDatabase())
+                {
+                    baseDatabaseConnect.CreateDatabase(testDatabase);
+                }
 
-                // create test database
-                using var dbInitConnect = new InitializeDatabase();
-                dbInitConnect.CreateDatabase(testDatabase);
-                //dbInitConnect.Database.ExecuteSqlRaw($"create database {testDatabase}");
+                // найти оригинальный коннект к базе и заменить на свой
+                var dataContext = services.Single(d => d.ServiceType == typeof(DataContext));
+                services.Remove(dataContext);
+                services.AddTransient<DataContext>(x => new TestDataContext($"Server=localhost;Database={testDatabase};Trusted_Connection=True;"));
 
-                // TODO: restore database from backup
-                // or generates tables
-                var db = scopedServices.GetRequiredService<DataContext>();
-                db.Database.EnsureCreated();
+                // получить ссылку на базу данных
+                var sp = services.BuildServiceProvider();
+                // using var scope = sp.CreateScope();
+                // var serviceProdiver = scope.ServiceProvider;
+                var dbConnect = sp.GetRequiredService<DataContext>() as TestDataContext;
 
-                // TODO: initialize data tables 
-                InitializeData.CreateDefaultData(db);
+                // создать таблицы
+                dbConnect.Database.EnsureCreated();
+                // созданные данные в таблицах
+                InitializeData.CreateDefaultData(dbConnect);
             });
         }
     }

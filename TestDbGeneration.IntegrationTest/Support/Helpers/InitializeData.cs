@@ -5,12 +5,13 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using TestDbGeneration.Models;
+using TestDbGeneration.IntegrationTest.Support.Services;
 
 namespace TestDbGeneration.IntegrationTest.Support.Helpers
 {
     public class InitializeData
     {
-        public static void CreateDefaultData(DbContext db)
+        public static void CreateDefaultData(TestDataContext db)
         {
             db.Set<Person>().Add(new Person
             {
